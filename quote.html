@@ -4,13 +4,14 @@
         <meta charset="utf-8">
         <title>Fuel Quote Form</title>
         <style>
-            h1{
+            h1{        
+                clear: left; 
                 text-align: center;
                 font-family: Arial, Helvetica, sans-serif;
             }
-            form {
+            form.quote {
                 font-family: Arial, Helvetica, sans-serif;
-                margin: 0 175px;
+                margin: auto;
                 width: 50%;
                 padding: 15px;
                 background: whitesmoke;
@@ -33,23 +34,46 @@
                 height: 20px;
                 margin-top: 10px;
             }
-            button{
+            button#submit{
                 padding: 8px 12px;
                 background: lightseagreen;
                 display: block;
                 width: 120px;
-                margin: 10px 0 0px 130px;
+                margin: auto;
                 border-radius: 3px;
                 font-size: 0.8em;
                 border-color: lightseagreen;
 
             }
-
+            ul {
+                float: left;
+                list-style-type: none;
+                margin: auto;
+                font-size: 20px;
+            }
+            ul li{
+                padding: 12px;
+            }
         </style>
     </head>
     <body>
+        <ul>
+            <li>
+            </li>
+            <li>
+                <a href="">Create Form</a>
+            </li>
+            <li>
+                <a href="">Edit Profile</a>
+            </li>
+            <li>
+                <form action="" method="POST">
+                    <button type="">Log Out</button>
+                </form>
+            </li>
+        </ul>
         <h1>Fuel Quote Form</h1>
-        <form action="" method="POST">
+        <form class="quote" action="" method="POST">
             <div>
             <label for="gallons">Gallons Requested:</label>
             <input type="number" name="gallons" id="gallons" required>
@@ -66,7 +90,7 @@
                 Suggested Price / gallon:
             </div>
             <div>
-                <button type="submit">Submit Form</button>
+                <button id="submit" type="submit">Submit Form</button>
             </div>
         </form>
         
