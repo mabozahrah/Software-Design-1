@@ -1,0 +1,105 @@
+html {
+    background: url("background.jpg")
+}
+
+.body-content {
+    padding-top: 10vh;
+}
+
+.container {
+    width: 500px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: #ffffec;
+    color: #8688ff;
+    font-family: Arial Rounded MT Bold;
+    border-radius: 20px;
+}
+
+h2 {
+    color: #8688ff;
+    font-family: Arial ;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.useinfo {
+    margin: 5px;
+    padding-bottom: 10px;
+    display: flex;
+}
+
+.useinfo label {
+    display: block;
+    padding: 2px;
+    font-size: 20px;
+    width: 100px;
+}
+
+.useinfo input {
+    width: 320px;
+    height: 35px;
+    border: 2px solid grey;
+    border-radius: 20px;
+    background: white;
+    color: black;
+    text-align: center;
+    display: inline-block;
+}
+
+.submit {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 5px 0;
+    float: center;
+    width:100%;
+}
+
+
+button {
+    background-color: #8688ff;
+    color: white;
+    padding: 14px 20px;
+    margin: center;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 15px;
+    text-align: center
+  }
+  
+  button:hover {
+    opacity:1;
+  }
+
+p {
+    text-align: center;
+    font-size: 12px;
+    font-family: Arial;
+    color: white;
+}
+table{
+    margin: auto;
+    border-collapse: collapse;
+  }
+td, th {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: left;
+}
+ul {
+    float: left;
+    list-style-type: none;
+    margin: auto;
+    font-size: 20px;
+}
+ul li{
+    padding: 12px;
+}

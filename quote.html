@@ -2,72 +2,23 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="quote_style.css">
         <title>Fuel Quote Form</title>
-        <style>
-            h1{        
-                clear: left; 
-                text-align: center;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            form.quote {
-                font-family: Arial, Helvetica, sans-serif;
-                margin: auto;
-                width: 50%;
-                padding: 15px;
-                background: whitesmoke;
-                border: 1px solid rgba(0, 0, 0, 0.075);
-                font-size: 14px;
-                color: black ;
-            }
-            label{
-                display: inline-block;
-                width: 150px;
-                text-align: left;
-                color: black;
-                margin-top: 10px;
-            }
-            input{
-                font: 1em sans-serif;
-                width: 200px;
-                box-sizing: border-box;
-                border: 1px solid lightgray;
-                height: 20px;
-                margin-top: 10px;
-            }
-            button#submit{
-                padding: 8px 12px;
-                background: lightseagreen;
-                display: block;
-                width: 120px;
-                margin: auto;
-                border-radius: 3px;
-                font-size: 0.8em;
-                border-color: lightseagreen;
-
-            }
-            ul {
-                float: left;
-                list-style-type: none;
-                margin: auto;
-                font-size: 20px;
-            }
-            ul li{
-                padding: 12px;
-            }
-        </style>
     </head>
     <body>
+    <div class="body-content">
+    <div>
         <ul>
             <li>
             </li>
             <li>
-                <a href="">Create Form</a>
+                <a href="quote.html">Create Form</a>
             </li>
             <li>
-                <a href="">Edit Profile</a>
+                <a href="index1.html">Edit Profile</a>
             </li>
             <li>
-                <a href="">History</a>
+                <a href="fuel quote history.html">History</a>
             </li>
             <li>
                 <form action="" method="POST">
@@ -75,27 +26,30 @@
                 </form>
             </li>
         </ul>
-        <h1>Fuel Quote Form</h1>
+    </div>
+    <div class="container">
+        <h2>Fuel Quote Form</h2>
         <form class="quote" action="" method="POST">
-            <div>
-            <label for="gallons">Gallons Requested:</label>
+            <div class="useinfo">
+            <label for="gallons"><b>Gallons Requested:</b></label>
             <input type="number" name="gallons" id="gallons" required>
             </div>
-            <div>
+            <div id="address" class="useinfo">
                 Delivery Address:
                 
             </div>
-            <div>
-                <label for="delivdate">Delivery Date:</label>
+            <div class="useinfo">
+                <label for="delivdate"><b>Delivery Date:</b></label>
                 <input type="date" name="delivdate" id="delivdate">
             </div>
-            <div>
+            <div class="useinfo">
                 Suggested Price / gallon:
             </div>
             <div>
-                <button id="submit" type="submit">Submit Form</button>
+                <button class="submit" id="submit" type="submit">Submit Form</button>
             </div>
         </form>
-        
+    </div>
+    </div>
     </body>
 </html>
