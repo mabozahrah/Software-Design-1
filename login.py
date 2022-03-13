@@ -5,6 +5,8 @@ from . import db #used database but will implement something more sophisticated 
 #password = "abd123"
 #username = "mariam"
 
+import unittest
+#python -m unittest login.py
 
 #validating using db
 class loginuser(db.Model):
