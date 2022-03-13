@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
+import unittest
+#python -m unittest login.py
+
 @app.route("/profile", methods = ["GET", "POST"])
   def profile():
     error = ''
