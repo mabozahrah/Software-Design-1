@@ -1,0 +1,66 @@
+html {
+  background: url("background.jpg")
+}
+
+.body-content {
+  padding-top: 10vh;
+}
+
+p {
+  font-family: Arial;
+  font-size: 20;
+  font-weight: bold;
+}
+
+.container {
+  width: 500px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  background:  #ffffec;
+  color: #8688ff;
+  font-family: Arial Rounded MT Bold;
+  border-radius: 20px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 15px;  
+}
+
+input[type=text]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.select {
+  text-align: center;
+}
+
+
+button {
+  background-color: #8688ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 15px;
+}
+
+button:hover {
+  opacity:1;
+}
+.signup {
+  float: center;
+  width:100%;
+}
+
