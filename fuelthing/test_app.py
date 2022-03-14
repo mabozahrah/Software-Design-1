@@ -9,7 +9,7 @@ test_app.py      75      0   100%
 TOTAL            75      0   100%
 """
 
-
+#All of us worked on this together
 class TestLogin:
 
     @pytest.fixture

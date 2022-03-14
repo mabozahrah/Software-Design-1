@@ -7,12 +7,12 @@ user_info = {
     'password': 'secret-password'
 }
 
-
+#Mariam
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template('signup.html')
 
-
+#Mariam
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -27,7 +27,7 @@ def login():
             return jsonify({'error': 'Invalid credentials'}), 400
     return render_template('login.html'), 200
 
-
+#Mariam
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def profile():
         return jsonify({"success": "Profile Updated"}), 200
     return render_template('profile.html'), 200
 
-
+#Brooke and May
 @app.route('/fuel-quote', methods=['GET', 'POST'])
 def fuel_quote():
     if request.method == 'POST':
@@ -85,7 +85,7 @@ def fuel_quote():
         return jsonify({"success": "Fuel Quote Submitted"}), 200
     return render_template('quote.html'), 200
 
-
+#Brooke and May
 @app.route('/history')
 def quote_history():
     return render_template('quote-history.html'), 200
