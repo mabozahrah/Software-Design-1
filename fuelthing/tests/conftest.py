@@ -1,7 +1,7 @@
 import pytest
 from src.app import app, db, UserCredentials, ClientInformation, FuelQuote
 
-
+#Mariam
 @pytest.fixture(scope='module')
 def new_user():
     user = UserCredentials('patkennedy79', 'password1')
@@ -21,7 +21,7 @@ def new_fuel_quote():
                            user_id=7)
     return fuel_quote
 
-
+#may
 @pytest.fixture(scope='module')
 def test_client():
     flask_app = app
@@ -32,7 +32,7 @@ def test_client():
         with flask_app.app_context():
             yield testing_client  
 
-
+#Brooke
 @pytest.fixture(scope='module')
 def init_database(test_client):
     
@@ -58,7 +58,7 @@ def init_database(test_client):
 
     db.drop_all()
 
-
+#May
 @pytest.fixture(scope='function')
 def login_default_user(test_client):
     test_client.post('/login',

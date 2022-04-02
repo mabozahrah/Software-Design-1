@@ -1,12 +1,8 @@
 from src.app import app
 
-
+#Mariam
 def test_home_page():
-    """
-    GIVEN a Flask application configured for testing
-    WHEN the '/' page is requested (GET)
-    THEN check that the response is valid
-    """
+    
     flask_app = app
 
     
@@ -18,11 +14,7 @@ def test_home_page():
 
 
 def test_home_page_post():
-    """
-    GIVEN a Flask application configured for testing
-    WHEN the '/' page is is posted to (POST)
-    THEN check that a '405' status code is returned
-    """
+    
     flask_app = app
 
     
@@ -33,11 +25,7 @@ def test_home_page_post():
 
 
 def test_home_page_with_fixture(test_client):
-    """
-    GIVEN a Flask application configured for testing
-    WHEN the '/' page is requested (GET)
-    THEN check that the response is valid
-    """
+    
     response = test_client.get('/')
     assert response.status_code == 302
     assert b"Redirecting" in response.data
@@ -45,11 +33,7 @@ def test_home_page_with_fixture(test_client):
 
 
 def test_home_page_post_with_fixture(test_client):
-    """
-    GIVEN a Flask application configured for testing
-    WHEN the '/' page is is posted to (POST)
-    THEN check that a '405' status code is returned
-    """
+    
     response = test_client.post('/')
     assert response.status_code == 405
     assert b"Login" not in response.data
@@ -57,11 +41,7 @@ def test_home_page_post_with_fixture(test_client):
 
 
 def test_valid_home_page(test_client, init_database):
-    """
-    GIVEN a Flask application configured for testing
-    WHEN the '/login' page is posted to (POST)
-    THEN check the response is valid
-    """
+    
     response = test_client.post('/login',
                                 data=dict(username='patkennedy79', password='password1'),
                                 follow_redirects=True)

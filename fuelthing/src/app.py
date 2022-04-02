@@ -4,6 +4,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
+#worked on db all tgt
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -36,9 +37,7 @@ class UserCredentials(UserMixin, db.Model):
     fuel_quotes = db.relationship("FuelQuote", back_populates="user")
 
     def __init__(self, username: str, password_plaintext: str):
-        """Create a new User object using the email address and hashing the
-        plaintext password using Werkzeug.Security.
-        """
+        
         self.username = username
         self.password_hashed = self._generate_password_hash(password_plaintext)
 
@@ -57,21 +56,21 @@ class UserCredentials(UserMixin, db.Model):
 
     @property
     def is_authenticated(self):
-        """Return True if the user has been successfully registered."""
+        
         return True
 
     @property
     def is_active(self):
-        """Always True, as all users are active."""
+        
         return True
 
     @property
     def is_anonymous(self):
-        """Always False, as anonymous users aren't supported."""
+        
         return False
 
     def get_id(self):
-        """Return the user ID as a unicode string (`str`)."""
+        
         return str(self.id)
 
 
