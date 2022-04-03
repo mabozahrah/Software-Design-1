@@ -25,7 +25,7 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     return redirect('/login?next=' + request.path)
-
+#mariam's work
 
 class UserCredentials(UserMixin, db.Model):
     __tablename__ = "user_credentials"
@@ -88,7 +88,7 @@ class ClientInformation(db.Model):
     def __repr__(self):
         return '<ClientInformation %r>' % self.full_name
 
-
+#brooke's work
 class FuelQuote(db.Model):
     __tablename__ = "fuel_quote"
     id = db.Column(db.Integer, primary_key=True)
@@ -151,6 +151,7 @@ def login():
             return render_template('login.html')
     return render_template('login.html')
 
+#mariam and may
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
@@ -200,7 +201,7 @@ def profile():
         return redirect(url_for('quote_history'))
     return render_template('profile.html', profile=user_profile)
 
-
+#brooke and may
 @app.route('/fuel-quote', methods=['GET', 'POST'])
 @login_required
 def fuel_quote():
@@ -245,7 +246,7 @@ def logout():
     flash('Goodbye!',category='info')
     return redirect(url_for('login'))
 
-
+#may's work
 class Pricing:
     def __init__(self, gallons, delivery_address, delivery_date):
         self.gallons = gallons
