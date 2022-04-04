@@ -95,7 +95,7 @@ class FuelQuote(db.Model):
     gallons = db.Column(db.Integer, unique=False)
     delivery_date = db.Column(db.String(250), nullable=False)
     delivery_address = db.Column(db.String(250), nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=False)
+    price = db.Column(db.Numeric(10, 2), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user_credentials.id"))
     user = db.relationship("UserCredentials", back_populates="fuel_quotes")
 
@@ -144,7 +144,7 @@ def login():
                     login_user(user)
 
                     flash('Thanks for logging in, {}!'.format(current_user.username),category='info')
-                    return redirect('/')
+                    return redirect(url_for('profile'))
                 else:
                     return render_template('login.html')
         else:
@@ -204,6 +204,7 @@ def profile():
 @app.route('/fuel-quote', methods=['GET', 'POST'])
 @login_required
 def fuel_quote():
+    user_profile = ClientInformation.query.get(current_user.id)
     if request.method == 'POST':
         gallons = request.form.get('gallons')
         delivery_date = request.form.get('delivery_date')
@@ -227,7 +228,7 @@ def fuel_quote():
         db.session.commit()
         return redirect(url_for('quote_history'))
 
-    return render_template('quote.html')
+    return render_template('quote.html', profile=user_profile)
 
 
 @app.route('/')
