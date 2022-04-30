@@ -36,7 +36,7 @@
                       <td>{{quote.delivery_address}}</td>
                       <td>{{quote.delivery_date}}</td>
                       <td class="text-center">{{quote.price}}</td>
-                      {% set total_due = quote.gallons|int * quote.price|float  %}
+                      {% set total_due = quote.gallons|float * quote.price|float  %}
                       <td class="text-center">{{total_due}}</td>
                     </tr>
                     {% endfor %}

@@ -26,19 +26,15 @@ def new_fuel_quote():
 def test_client():
     flask_app = app
 
-    
     with flask_app.test_client() as testing_client:
-        
         with flask_app.app_context():
             yield testing_client  
 
 #Brooke
 @pytest.fixture(scope='module')
 def init_database(test_client):
-    
     db.create_all()
 
-    
     user1 = UserCredentials(username='patkennedy79', password_plaintext='password1')
     user2 = UserCredentials(username='kennedyfamilyrecipes', password_plaintext='password2')
     db.session.add(user1)
@@ -51,20 +47,20 @@ def init_database(test_client):
                            user=user1)
 
     db.session.add(fuel_quote)
-    
     db.session.commit()
 
-    yield  
+    yield
 
     db.drop_all()
 
 #May
+
 @pytest.fixture(scope='function')
 def login_default_user(test_client):
     test_client.post('/login',
                      data=dict(username='patkennedy79', password='password1'),
                      follow_redirects=True)
 
-    yield  
+    yield
 
     test_client.get('/logout', follow_redirects=True)

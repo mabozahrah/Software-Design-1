@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for,flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for,flash,make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -37,7 +37,7 @@ class UserCredentials(UserMixin, db.Model):
     fuel_quotes = db.relationship("FuelQuote", back_populates="user")
 
     def __init__(self, username: str, password_plaintext: str):
-        
+
         self.username = username
         self.password_hashed = self._generate_password_hash(password_plaintext)
 
@@ -56,21 +56,21 @@ class UserCredentials(UserMixin, db.Model):
 
     @property
     def is_authenticated(self):
-        
+
         return True
 
     @property
     def is_active(self):
-        
+
         return True
 
     @property
     def is_anonymous(self):
-        
+
         return False
 
     def get_id(self):
-        
+
         return str(self.id)
 
 
@@ -95,7 +95,7 @@ class FuelQuote(db.Model):
     gallons = db.Column(db.Integer, unique=False)
     delivery_date = db.Column(db.String(250), nullable=False)
     delivery_address = db.Column(db.String(250), nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=True)
+    price = db.Column(db.Float, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user_credentials.id"))
     user = db.relationship("UserCredentials", back_populates="fuel_quotes")
 
@@ -130,20 +130,20 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash('Already logged in!',category='info')
+        flash('Already logged in!', category='info')
         return redirect(url_for('quote_history'))
 
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+        print(username, password)
         if username and password:
             user = UserCredentials.query.filter_by(username=username).first()
             if user is not None:
                 if user.is_password_correct(password):
                     login_user(user)
 
-                    flash('Thanks for logging in, {}!'.format(current_user.username),category='info')
+                    flash('Thanks for logging in, {}!'.format(current_user.username), category='info')
                     return redirect(url_for('profile'))
                 else:
                     return render_template('login.html')
@@ -201,7 +201,7 @@ def profile():
         return redirect(url_for('quote_history'))
     return render_template('profile.html', profile=user_profile)
 
-#brooke and may
+
 @app.route('/fuel-quote', methods=['GET', 'POST'])
 @login_required
 def fuel_quote():
@@ -239,20 +239,61 @@ def quote_history():
     print(fuel_quotes)
     return render_template('quote-history.html', fuel_quotes=fuel_quotes)
 
-
+#worked all tgt
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    flash('Goodbye!',category='info')
+    flash('Goodbye!', category='info')
     return redirect(url_for('login'))
 
-#may's work
-class Pricing:
-    def __init__(self, gallons, delivery_address, delivery_date):
-        self.gallons = gallons
-        self.delivery_address = delivery_address
-        self.delivery_date = delivery_date
+
+def pricing_module(state, quote, gallons):
+    current_price_per_gallon = 1.50
+    location_factor = .04
+    if state == 'TX':
+        location_factor = .02
+    rate_history_factor = 0
+    if quote:
+        rate_history_factor = .01
+    gallons_requested_factor = .03
+    if gallons > 1000:
+        gallons_requested_factor = .02
+    company_profit_factor = 0.1
+    margin = current_price_per_gallon*(location_factor-rate_history_factor+gallons_requested_factor
+                                       + company_profit_factor)
+    print(margin)
+    suggested_price_per_gallon = current_price_per_gallon + margin
+    print(suggested_price_per_gallon)
+    total_amount = gallons * suggested_price_per_gallon
+    print(total_amount)
+
+    return suggested_price_per_gallon, total_amount
+
+
+@app.route('/get-quote', methods=['POST'])
+@login_required
+def get_quote():
+    if request.method == 'POST':
+
+        gallons = request.get_json()['gallons']
+
+        if 'state' in request.get_json():
+            state = request.get_json()['state']
+        else:
+            state = current_user.profile.state
+
+        quotes = current_user.fuel_quotes
+        print(gallons, state, quotes)
+        if len(quotes) > 0:
+            quote_result = True
+        else:
+            quote_result = False
+
+        suggested_price, total_amount = pricing_module(state=state, quote=quote_result, gallons=int(gallons))
+        print(suggested_price, total_amount)
+
+        return make_response(jsonify({"suggested_price": suggested_price, "total_amount": total_amount}),200)
 
 
 if __name__ == '__main__':

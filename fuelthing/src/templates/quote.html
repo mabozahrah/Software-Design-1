@@ -19,19 +19,27 @@
                     <form action="/fuel-quote" method="POST">
                         <div class="mb-3">
                             <label class="form-label" for="gallons"><b>Gallons Requested:</b></label>
-                            <input type="number" class="form-control" name="gallons" required>
+                            <input type="number" class="form-control" name="gallons" id="gallons" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="delivdate"><b>Delivery Address:</b></label>
-                            <input type="text" class="form-control" value="{{profile.address1}} {{profile.address2}}" name="delivery_address" readonly>
+                            <input type="text" class="form-control" value="{{profile.address1}} {{profile.address2}}" name="delivery_address" readonly required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="delivdate"><b>Delivery Date:</b></label>
-                            <input type="date" class="form-control" name="delivery_date">
+                            <input type="date" class="form-control" name="delivery_date" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for=""><b>Suggested Price / gallon:</b> </label>
-                            <input type="text" class="form-control" name="price">
+                            <input type="text" class="form-control" name="price" id="price" readonly  required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for=""><b>Total amount (Due):</b> </label>
+                            <input type="text" class="form-control" name="total_price" id="total_price" readonly  required>
+                        </div>
+                        <div  class="mb-3">
+                            <button id="get_quote"  class="btn btn-primary btn-sm">Get Quote</button>
+                            
                         </div>
                         <div>
                             <input type="submit" value="Submit Form" class="btn btn-info">
@@ -44,5 +52,40 @@
       </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
 
+    <script>
+        $(document).ready(function(){
+            console.log('connected');
+            $('#get_quote').on("click",function(event){
+                event.preventDefault();
+                console.log('clicked');
+                const gallons= $('#gallons').val();
+                
+                if (gallons !== ''){
+                    console.log(gallons);
+                    
+                    let data = new FormData();
+                    data.append("gallons",gallons);
+                    demo = JSON.stringify({'gallons':gallons})
+                    console.log(demo)
+                    $.ajax({
+                        type : 'POST',
+                        url : "/get-quote",
+                        data : JSON.stringify({'gallons':gallons}),
+                        contentType: "application/json;",
+                        success: function(response) {
+                            console.log(response);
+                            $('#price').val(response['suggested_price']);
+                            $('#total_price').val(response['total_amount']);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                      });
+                }
+            });
+        });
+    </script>
 </html>

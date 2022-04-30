@@ -62,7 +62,6 @@ def test_valid_registration(test_client, init_database):
 
 def test_duplicate_registration(test_client, init_database):
     
-    
     test_client.post('/register',
                      data=dict(username='pkennedy@hey.com',
                                password='FlaskIsTheBest'),

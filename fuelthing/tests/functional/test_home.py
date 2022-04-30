@@ -5,7 +5,6 @@ def test_home_page():
     
     flask_app = app
 
-    
     with flask_app.test_client() as test_client:
         response = test_client.get('/')
         assert response.status_code == 302
@@ -17,7 +16,6 @@ def test_home_page_post():
     
     flask_app = app
 
-    
     with flask_app.test_client() as test_client:
         response = test_client.post('/')
         assert response.status_code == 405

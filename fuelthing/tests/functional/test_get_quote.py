@@ -1,6 +1,6 @@
 from src.app import app
+import json
 
-#May
 def test_fuel_quote_page():
     
     flask_app = app
@@ -11,7 +11,7 @@ def test_fuel_quote_page():
         assert b"Redirecting" in response.data
 
 
-def test_fuel_quote_page_post():
+def test_get_quote_page_post():
     
     flask_app = app
 
@@ -23,14 +23,14 @@ def test_fuel_quote_page_post():
 
 
 
-def test_fuel_quote_post_with_fixture(test_client):
+def test_get_quote_post_with_fixture(test_client):
     
-    response = test_client.post('/profile')
+    response = test_client.post('/get-quote')
     assert response.status_code == 302
     assert b"Login" not in response.data
 
 
-def test_valid_fuel_quote(test_client, init_database):
+def test_valid_get_quote(test_client, init_database):
     
     response = test_client.post('/login',
                                 data=dict(username='patkennedy79', password='password1'),
@@ -41,11 +41,16 @@ def test_valid_fuel_quote(test_client, init_database):
     assert b'History' in response.data
     assert b'Logout' in response.data
 
-    response = test_client.post('/fuel-quote',
-                                data=dict(gallons=7, delivery_date='2022-04-2', delivery_address='4529 Marcus Street',
-                                          price=3.0, user_id=1),
-                                follow_redirects=True)
 
-    assert response.status_code == 200
-    assert b'History' in response.data
-    assert b'Logout' in response.data
+    mimetype = 'application/json'
+    headers = {
+        'Content-Type': mimetype,
+        'Accept': mimetype
+    }
+
+    response = test_client.post('/get-quote',
+                                json={"gallons": 1000, 'state': 'TX'},
+                                )
+
+    assert response.get_json()['suggested_price'] == 1.71
+    assert response.get_json()['total_amount'] == 1710.0
